@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-facade-xml type="seed">
+
+    <!-- User group type -->
+    <moqui.basic.Enumeration enumTypeId="UserGroupType" enumId="TEMPLATE_GRP" description="Template Group"/>
+
+    <!-- Screens -->
+    <artifactGroups artifactGroupId="TEMPLATE_ALL" description="Template (All)">
+        <artifacts artifactTypeEnumId="AT_XML_SCREEN" artifactName="component://module-template/screen/Module.xml" nameIsPattern="N" inheritAuthz="Y"/>
+    </artifactGroups>
+
+    <!-- User group -->
+    <userGroups userGroupId="TEMPLATE_ALL" description="Template (All)" groupTypeEnumId="TEMPLATE_GRP">
+        <authz artifactGroupId="TEMPLATE_ALL" authzActionEnumId="AUTHZA_ALL" authzTypeEnumId="AUTHZT_ALLOW"/>
+    </userGroups>
+
+    <!-- System admin user group -->
+    <userGroups userGroupId="ADMIN">
+        <authz artifactGroupId="TEMPLATE_ALL" authzActionEnumId="AUTHZA_ALL" authzTypeEnumId="AUTHZT_ALLOW"/>
+    </userGroups>
+
+</entity-facade-xml>
