@@ -1,4 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://moqui.org/xsd/entity-definition-3.xsd">
 
+    <entity entity-name="Tutorial" package="moqui.example">
+        <field name="tutorialId" type="id" is-pk="true"/>
+        <field name="tutorialTypeEnumId" type="id"/>
+        <field name="description" type="text-medium"/>
+
+        <relationship type="one" related="moqui.basic.Enumeration" title="TutorialType">
+            <key-map field-name="tutorialTypeEnumId"/>
+        </relationship>
+
+        <seed-data>
+            <moqui.basic.EnumerationType enumTypeId="TutorialType"/>
+            <moqui.basic.Enumeration enumId="Tut_1" description="Tut 1" enumTypeId="TutorialType"/>
+            <moqui.basic.Enumeration enumId="Tut_2" description="Tut 2" enumTypeId="TutorialType"/>
+        </seed-data>
+    </entity>
+
+    <extend-entity entity-name="Tutorial" package="moqui.example">
+        <field name="tutorialName" type="text-medium"/>
+    </extend-entity>
+
+    <view-entity entity-name="TutorialDetail" package="moqui.example">
+        <member-entity entity-alias="Tutorial" entity-name="moqui.example.Tutorial"/>
+        <member-entity entity-alias="TutorialType" entity-name="moqui.basic.Enumeration" join-from-alias="Tutorial" join-optional="true">
+            <key-map field-name="tutorialTypeEnumId" related="enumId"/>
+        </member-entity>
+
+        <alias-all entity-alias="Tutorial"/>
+        <alias field="description" entity-alias="TutorialType" name="enumDescription"/>
+    </view-entity>
 </entities>
